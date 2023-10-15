@@ -105,10 +105,6 @@ const FormSelect: React.FC<IFormSelectProps> = ({
             zIndex: "999 !important",
             top: "-30px",
           }),
-          singleValue: (base) => ({
-            ...base,
-            color: "white",
-          }),
         }}
         {...selectProps}
       />
