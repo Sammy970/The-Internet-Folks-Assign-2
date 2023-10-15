@@ -29,3 +29,10 @@ top: "-30px",
 }),
 
 ```
+
+2. Fixed bug at FormSelect - Added white color to the selected option of FormSelect
+
+singleValue: (base) => ({
+...base,
+color: "white"
+}),

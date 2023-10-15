@@ -97,13 +97,17 @@ const FormSelect: React.FC<IFormSelectProps> = ({
             ...base,
             fontSize: ".875rem",
             fontWeight: "500",
-            color: "black"
+            color: "black",
           }),
           menu: (base) => ({
             ...base,
             position: "absolute",
             zIndex: "999 !important",
             top: "-30px",
+          }),
+          singleValue: (base) => ({
+            ...base,
+            color: "white",
           }),
         }}
         {...selectProps}
