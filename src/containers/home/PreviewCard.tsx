@@ -1,6 +1,14 @@
 import { Box, Flex, Text, Grid } from "@chakra-ui/react";
 import React from "react";
 
+import {
+  IRequisitionDetails,
+  IJobDetails,
+  IInterViewSettings,
+} from "../../interface/forms";
+import { useData } from "./DataProvider";
+import { genderOptions, urgencyOptions } from "./constants";
+
 const DataCard: React.FC<{ title: string; children: React.ReactNode }> = ({
   title,
   children,
@@ -33,7 +41,17 @@ const KeyValue: React.FC<{
   );
 };
 
-const PreviewCard: React.FC = () => {
+const PreviewCard: React.FC<{
+  requisitionDetails?: IRequisitionDetails;
+  jobDetails?: IJobDetails;
+  interviewSettings?: IInterViewSettings;
+}> = ({ requisitionDetails, jobDetails, interviewSettings }) => {
+  const { state } = useData();
+  requisitionDetails = state.requisitionDetails;
+  jobDetails = state.jobDetails;
+  interviewSettings = state.interviewSettings;
+
+  console.log(requisitionDetails.gender);
   return (
     <Box p="1rem">
       <Box borderRadius="10px" bgColor="gray.100" height="fit-content">
@@ -63,20 +81,38 @@ const PreviewCard: React.FC = () => {
               justifyContent="space-between"
               alignItems="center"
             >
-              <Text fontSize="0.9rem" fontWeight="500"></Text>
+              <Text fontSize="0.9rem" fontWeight="500">
+                {requisitionDetails?.requisitionTitle}
+              </Text>
               <Flex justifyContent="space-around" alignItems="center">
                 <Text fontSize="0.8rem" mr="0.4rem" fontWeight="200" as="p">
                   OPENINGS
                 </Text>
-                <Text fontSize="1rem" fontWeight="bold" as="span"></Text>
+                <Text fontSize="1rem" fontWeight="bold" as="span">
+                  {requisitionDetails?.noOfOpenings}
+                </Text>
               </Flex>
             </Flex>
           </Box>
         </Box>
         <Box maxH="50rem" overflowY="auto" px="24px" pb="24px">
           <DataCard title="Requisition Details">
-            <KeyValue title="Urgency" value="" />
-            <KeyValue title="Gender" value="" />
+            <KeyValue
+              title="Urgency"
+              value={
+                urgencyOptions.find(
+                  (option) => option.value === requisitionDetails?.urgency
+                )?.label
+              }
+            />
+            <KeyValue
+              title="Gender"
+              value={
+                genderOptions.find(
+                  (option) => option.value === requisitionDetails?.gender
+                )?.label
+              }
+            />
           </DataCard>
           <DataCard title="Job Detail">
             <KeyValue title="Job Title" value="" />
