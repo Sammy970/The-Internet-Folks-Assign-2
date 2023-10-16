@@ -14,7 +14,7 @@ import { useData } from "./DataProvider";
 
 const InterviewDetailsForm: React.FC<{
   handleTab: (n: PageNumbers) => void;
-}> = ({handleTab}) => {
+}> = ({ handleTab }) => {
   const { state, setState } = useData();
 
   const {
@@ -84,7 +84,7 @@ const InterviewDetailsForm: React.FC<{
           value={values.interviewLanguage}
         />
         <Flex w="100%" justify="flex-end" mt="4rem" gap="20px">
-          <Button colorScheme="gray" type="button">
+          <Button colorScheme="gray" type="button" onClick={() => handleTab(1)}>
             Previous
           </Button>
           <Button colorScheme="red" type="submit">

@@ -40,7 +40,7 @@ const HomeLayout = () => {
           <Heading fontFamily="Poppins" fontSize="1.5rem" my="2rem">
             Create Candidate Requisition
           </Heading>
-          <Tabs isLazy>
+          <Tabs index={page} isLazy lazyBehavior="keepMounted">
             <TabList>
               <CustomTab>Requistion Details</CustomTab>
               <CustomTab>Job Details</CustomTab>
