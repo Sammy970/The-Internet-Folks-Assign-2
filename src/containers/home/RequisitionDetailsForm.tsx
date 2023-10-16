@@ -8,8 +8,11 @@ import FormSelect from "../../components/formComponents/FormSelect";
 import { IRequisitionDetails } from "../../interface/forms";
 import { genderOptions, urgencyOptions } from "./constants";
 import { useData } from "./DataProvider";
+import { PageNumbers } from "@src/interface/home";
 
-const RequisitionDetailsForm: React.FC = () => {
+const RequisitionDetailsForm: React.FC<{
+  handleTab: (n: PageNumbers) => void;
+}> = ({ handleTab }) => {
   const { state, setState } = useData();
 
   const {
@@ -40,6 +43,7 @@ const RequisitionDetailsForm: React.FC = () => {
     }),
     onSubmit: (values) => {
       //  Go to Next Step
+      handleTab(1);
     },
   });
 

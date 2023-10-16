@@ -10,12 +10,13 @@ import {
   Box,
   Grid,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useState } from "react";
 import InterviewSettingsForm from "./InterviewSettingsForm";
 import JobDetailsForm from "./JobDetailsForm";
 import RequisitionForm from "./RequisitionDetailsForm";
 import DisplayCard from "./PreviewCard";
 import DataProvider from "./DataProvider";
+import { PageNumbers } from "@src/interface/home";
 
 const CustomTab: React.FC<TabProps> = ({ children, ...props }) => {
   return (
@@ -26,6 +27,12 @@ const CustomTab: React.FC<TabProps> = ({ children, ...props }) => {
 };
 
 const HomeLayout = () => {
+  const [page, setPage] = useState<PageNumbers>(0);
+
+  const handleTab = (pageNumber: PageNumbers) => {
+    setPage(pageNumber);
+  };
+
   return (
     <DataProvider>
       <Box w="100%">
@@ -42,13 +49,13 @@ const HomeLayout = () => {
             <Grid display="grid" gridTemplateColumns="3fr 2fr" gap="24px">
               <TabPanels>
                 <TabPanel>
-                  <RequisitionForm />
+                  <RequisitionForm handleTab={handleTab} />
                 </TabPanel>
                 <TabPanel>
-                  <JobDetailsForm />
+                  <JobDetailsForm handleTab={handleTab} />
                 </TabPanel>
                 <TabPanel>
-                  <InterviewSettingsForm />
+                  <InterviewSettingsForm handleTab={handleTab} />
                 </TabPanel>
               </TabPanels>
               <DisplayCard />

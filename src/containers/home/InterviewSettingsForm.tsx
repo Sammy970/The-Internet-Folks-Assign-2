@@ -9,8 +9,14 @@ import {
   interviewLanguageOptions,
   interviewModeOptions,
 } from "./constants";
+import { PageNumbers } from "@src/interface/home";
+import { useData } from "./DataProvider";
 
-const InterviewDetailsForm: React.FC = () => {
+const InterviewDetailsForm: React.FC<{
+  handleTab: (n: PageNumbers) => void;
+}> = ({handleTab}) => {
+  const { state, setState } = useData();
+
   const {
     errors,
     touched,
@@ -30,6 +36,17 @@ const InterviewDetailsForm: React.FC = () => {
     },
   });
 
+  const handleSelectChange = (name: string, value: string) => {
+    setFieldValue(name, value); // Call Formik's setFieldValue
+    setState((prevState) => ({
+      ...prevState,
+      interviewSettings: {
+        ...prevState.interviewSettings,
+        [name]: value,
+      },
+    }));
+  };
+
   return (
     <Box width="100%" as="form" onSubmit={handleSubmit as any}>
       <Box width="100%">
@@ -38,7 +55,7 @@ const InterviewDetailsForm: React.FC = () => {
           placeholder="Select interview mode"
           name="interviewMode"
           options={interviewModeOptions}
-          onChange={setFieldValue}
+          onChange={handleSelectChange}
           onBlur={setFieldTouched}
           value={values?.interviewMode}
           error={errors?.interviewMode}
@@ -49,7 +66,7 @@ const InterviewDetailsForm: React.FC = () => {
           placeholder="Select interview duration"
           name="interviewDuration"
           options={interviewDurationOptions}
-          onChange={setFieldValue}
+          onChange={handleSelectChange}
           onBlur={setFieldTouched}
           value={values?.interviewDuration}
           error={errors?.interviewDuration}
@@ -60,7 +77,7 @@ const InterviewDetailsForm: React.FC = () => {
           name="interviewLanguage"
           placeholder="Select interview language"
           options={interviewLanguageOptions}
-          onChange={setFieldValue}
+          onChange={handleSelectChange}
           onBlur={setFieldTouched}
           error={errors.interviewLanguage}
           touched={touched.interviewLanguage}

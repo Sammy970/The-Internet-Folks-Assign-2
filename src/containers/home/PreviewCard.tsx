@@ -7,7 +7,7 @@ import {
   IInterViewSettings,
 } from "../../interface/forms";
 import { useData } from "./DataProvider";
-import { genderOptions, urgencyOptions } from "./constants";
+import { genderOptions, interviewDurationOptions, interviewLanguageOptions, interviewModeOptions, urgencyOptions } from "./constants";
 
 const DataCard: React.FC<{ title: string; children: React.ReactNode }> = ({
   title,
@@ -51,7 +51,6 @@ const PreviewCard: React.FC<{
   jobDetails = state.jobDetails;
   interviewSettings = state.interviewSettings;
 
-  console.log(requisitionDetails.gender);
   return (
     <Box p="1rem">
       <Box borderRadius="10px" bgColor="gray.100" height="fit-content">
@@ -115,14 +114,35 @@ const PreviewCard: React.FC<{
             />
           </DataCard>
           <DataCard title="Job Detail">
-            <KeyValue title="Job Title" value="" />
-            <KeyValue title="Job Details" value="" />
-            <KeyValue title="Job Location" value="" />
+            <KeyValue title="Job Title" value={jobDetails?.jobTitle} />
+            <KeyValue title="Job Details" value={jobDetails?.jobDetails} />
+            <KeyValue title="Job Location" value={jobDetails?.jobLocation} />
           </DataCard>
           <DataCard title="Interview Settings">
-            <KeyValue title="Interview Duration" value="" />
-            <KeyValue title="Interview Language" value="" />
-            <KeyValue title="Interview Mode" value="" />
+            <KeyValue
+              title="Interview Duration"
+              value={
+                interviewDurationOptions.find(
+                  (item) => item?.value === interviewSettings?.interviewDuration
+                )?.label
+              }
+            />
+            <KeyValue
+              title="Interview Language"
+              value={
+                interviewLanguageOptions.find(
+                  (item) => item?.value === interviewSettings?.interviewLanguage
+                )?.label
+              }
+            />
+            <KeyValue
+              title="Interview Mode"
+              value={
+                interviewModeOptions.find(
+                  (item) => item?.value === interviewSettings?.interviewMode
+                )?.label
+              }
+            />
           </DataCard>
         </Box>
       </Box>
